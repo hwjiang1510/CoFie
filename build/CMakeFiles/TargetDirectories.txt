@@ -1,0 +1,17 @@
+/vision/hwjiang/3d_generation/DeepLocalShapes/build/CMakeFiles/install/local.dir
+/vision/hwjiang/3d_generation/DeepLocalShapes/build/CMakeFiles/edit_cache.dir
+/vision/hwjiang/3d_generation/DeepLocalShapes/build/CMakeFiles/install/strip.dir
+/vision/hwjiang/3d_generation/DeepLocalShapes/build/CMakeFiles/SampleVisibleMeshSurface.dir
+/vision/hwjiang/3d_generation/DeepLocalShapes/build/CMakeFiles/install.dir
+/vision/hwjiang/3d_generation/DeepLocalShapes/build/CMakeFiles/list_install_components.dir
+/vision/hwjiang/3d_generation/DeepLocalShapes/build/CMakeFiles/rebuild_cache.dir
+/vision/hwjiang/3d_generation/DeepLocalShapes/build/CMakeFiles/PreprocessMesh.dir
+/vision/hwjiang/3d_generation/DeepLocalShapes/build/third-party/cnpy/CMakeFiles/install/strip.dir
+/vision/hwjiang/3d_generation/DeepLocalShapes/build/third-party/cnpy/CMakeFiles/edit_cache.dir
+/vision/hwjiang/3d_generation/DeepLocalShapes/build/third-party/cnpy/CMakeFiles/install/local.dir
+/vision/hwjiang/3d_generation/DeepLocalShapes/build/third-party/cnpy/CMakeFiles/example1.dir
+/vision/hwjiang/3d_generation/DeepLocalShapes/build/third-party/cnpy/CMakeFiles/cnpy-static.dir
+/vision/hwjiang/3d_generation/DeepLocalShapes/build/third-party/cnpy/CMakeFiles/install.dir
+/vision/hwjiang/3d_generation/DeepLocalShapes/build/third-party/cnpy/CMakeFiles/list_install_components.dir
+/vision/hwjiang/3d_generation/DeepLocalShapes/build/third-party/cnpy/CMakeFiles/rebuild_cache.dir
+/vision/hwjiang/3d_generation/DeepLocalShapes/build/third-party/cnpy/CMakeFiles/cnpy.dir

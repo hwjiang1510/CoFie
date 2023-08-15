@@ -1,0 +1,48 @@
+{
+  "Description" : [ "This experiment learns a shape representation for chair, lamp, plane, sofa, table ",
+                    "using data from ShapeNet version 2." ],
+  "DataSource" : "data",
+  "TrainSplit" : "examples/splits/sv2_all_train.json",
+  "TestSplit" : "examples/splits/sv2_all_test.json",
+  "NetworkArch" : "deep_ls_decoder",
+  "NetworkSpecs" : {
+    "dims" : [ 128, 128, 128, 128 ],
+    "dropout" : [],
+    "dropout_prob" : 0.0,
+    "norm_layers" : [],
+    "latent_in" : [],
+    "xyz_in_all" : false,
+    "use_tanh" : false,
+    "latent_dropout" : false,
+    "weight_norm" : false
+    },
+  "CodeLength" : 125,
+  "NumIterations" : 150000,
+  "SnapshotFrequency" : 500,
+  "AdditionalSnapshots" : [ 100, 250, 750 ],
+  "LearningRateSchedule" : [
+    {
+      "Type" : "Step",
+      "Initial" : 0.01,
+      "Interval" : 250,
+      "Factor" : 0.5
+    },
+    {
+      "Type" : "Step",
+      "Initial" : 0.01,
+      "Interval" : 250,
+      "Factor" : 0.5
+    }],
+  "Seed": 0,
+  "SampleScenePerBatch": 24,
+  "SampleVoxelPerScene": 2000,
+  "SamplePointPerVoxel": 8,
+  "DataLoaderThreads" : 24,
+  "ClampingDistance" : 0.1,
+  "CodeRegularization" : true,
+  "CodeRegularizationLambda" : 1e-4,
+  "CodeBound" : 1.0,
+  "VoxelResolution" : 32,
+  "VolumeSizeHalf" : 1.2,
+  "ConsistenyLossExpandRadius" : 1.5
+}
