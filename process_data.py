@@ -20,7 +20,8 @@ from scipy.spatial import cKDTree
 def calculate_occupancy(category_instance, voxel_resolution, volume_size_half, voxel_coordinate, expand_rate=1.5):
     print(category_instance)
     category, instance_name = category_instance
-    root = os.path.join('./data/SdfSamples', 'ShapeNetV2', category)
+    #root = os.path.join('./data/SdfSamples', 'ShapeNetV2', category)
+    root = '/scratch/cluster/hwjiang/dataset/deepls/data/SdfSamples/ShapeNetV2/{}'.format(category)
     instance_path = os.path.join(root, instance_name + '.npz')
 
     save_root = root.replace('SdfSamples', 'SdfSamplesToVoxelIndices')
@@ -37,32 +38,38 @@ def calculate_occupancy(category_instance, voxel_resolution, volume_size_half, v
     sdf_all = torch.cat([sdf_pos, sdf_neg], dim=0) # [K,4]
 
     # get sampled points near the surface
-    sdf_surface = sdf_all[np.abs(sdf_all[:,-1]) < 0.075]   # voxel size is 2.4/32 = 0.075
+    sdf_surface = sdf_all[np.abs(sdf_all[:,-1]) < 0.1]   # voxel size is 2.0/32 = 0.0625
+    #sdf_surface = sdf_all.clone()
+    sdf_tree_pos, sdf_tree_neg = cKDTree(sdf_pos[:,:3]), cKDTree(sdf_neg[:,:3])
     sdf_tree_all = cKDTree(sdf_all[:,:3])
     sdf_tree_surface = cKDTree(sdf_surface[:,:3])
     
     # get query radius
     voxel_size = (volume_size_half * 2) / voxel_resolution
-    sdf_grid_radius = expand_rate * voxel_size
+    sdf_grid_radius = expand_rate * voxel_size / 2.0    # radius is half of voxel size
 
     # find neighbouring points
     results = {}
     for cur_voxel_idx, cur_voxel_coordinate in enumerate(voxel_coordinate):
-        near_sample_indices_surface = sdf_tree_surface.query_ball_point(x=cur_voxel_coordinate.numpy(), r=sdf_grid_radius, p=np.inf)
-        if len(near_sample_indices_surface) > 0:
+        #near_sample_indices_surface = sdf_tree_surface.query_ball_point(x=cur_voxel_coordinate.numpy(), r=sdf_grid_radius, p=np.inf)
+        #if len(near_sample_indices_surface) > 0:
+        pos_sample_idnices = sdf_tree_pos.query_ball_point(x=cur_voxel_coordinate.numpy(), r=sdf_grid_radius, p=np.inf)
+        neg_sample_idnices = sdf_tree_neg.query_ball_point(x=cur_voxel_coordinate.numpy(), r=sdf_grid_radius, p=np.inf)
+        if len(pos_sample_idnices) > 0 and len(neg_sample_idnices) > 0:
             near_sample_indices_all = sdf_tree_all.query_ball_point(x=cur_voxel_coordinate.numpy(), r=sdf_grid_radius, p=np.inf)
             results[cur_voxel_idx] = near_sample_indices_all
     with open(save_path, 'w') as f:
         json.dump(results, f)
 
     num_valid_voxel = len(list(results.keys()))
-    print('{} voxels valid ({}%)'.format(num_valid_voxel, 100 * num_valid_voxel / (32 * 32 * 32)))
+    #print('{} voxels valid ({}%)'.format(num_valid_voxel, 100 * num_valid_voxel / (32 * 32 * 32)))
     
     return results
 
 
 def process_instances():
-    split_file = 'examples/splits/sv2_all_train.json'
+    # split_file = 'examples/splits/sv2_all_train.json'
+    split_file = 'examples/splits/55cat_test.json'
     with open(split_file, 'r') as f:
         split = json.load(f)
     
@@ -75,8 +82,8 @@ def process_instances():
 
     print(len(all_category_instance))
 
-    voxel_resolution = 32
-    volume_size_half = 1.2
+    voxel_resolution = 32 #32
+    volume_size_half = 1.0 # 1.2
     expand_rate = 1.5 # for calculating shape boundary consistency loss
     voxel_coordinate = generate_grid_center_indices(voxel_resolution, volume_size_half).reshape(-1,3) # [R^3, 3]
 

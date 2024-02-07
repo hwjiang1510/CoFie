@@ -1,6 +1,8 @@
 import torch
 import os
 import deep_ls.workspace as ws
+import logging
+import time
 
 
 class LearningRateSchedule:
@@ -243,8 +245,8 @@ def get_saving_epochs(specs):
     checkpoints.sort()
     return checkpoints
 
-def get_mean_latent_vector_magnitude(latent_vectors):
-    return torch.mean(torch.norm(latent_vectors.weight.data.detach(), dim=1))
+def get_mean_latent_vector_magnitude(latent_vectors, code_length):
+    return torch.mean(torch.norm(latent_vectors.weight.data.detach()[:,:code_length], dim=1))
 
 def append_parameter_magnitudes(param_mag_log, model):
     for name, param in model.named_parameters():
@@ -291,3 +293,22 @@ def try_to_cuda(t, device):
     except AttributeError:
         pass
     return t
+
+def get_logger(exp_dir, phase='train'):
+    time_str = time.strftime('%Y-%m-%d-%H-%M')
+    log_file_name = '{}_{}.log'.format(phase, time_str)
+    final_log_file = os.path.join(exp_dir, log_file_name)
+    head = '%(asctime)-15s %(message)s'
+
+    for handler in logging.root.handlers[:]:
+        logging.root.removeHandler(handler)
+    logging.basicConfig(filename=str(final_log_file),
+                        format=head,
+                        filemode='w')
+    logger = logging.getLogger()
+    logger.setLevel(logging.INFO)
+    console = logging.StreamHandler()
+    logging.getLogger('').addHandler(console)
+
+    return logger
+    

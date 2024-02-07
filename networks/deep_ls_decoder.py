@@ -5,6 +5,8 @@
 import torch.nn as nn
 import torch
 import torch.nn.functional as F
+import torch.nn.init as init
+import math
 
 
 class Decoder(nn.Module):
@@ -48,14 +50,33 @@ class Decoder(nn.Module):
                     out_dim -= 3
 
             # weight_norm is not used in DeepLS
-            if weight_norm and layer in self.norm_layers:
-                setattr(
-                    self,
-                    "lin" + str(layer),
-                    nn.utils.weight_norm(nn.Linear(dims[layer], out_dim)),
-                )
-            else:
+            # if weight_norm and layer in self.norm_layers:
+            #     setattr(
+            #         self,
+            #         "lin" + str(layer),
+            #         nn.utils.weight_norm(nn.Linear(dims[layer], out_dim)),
+            #     )
+            # else:
+            #     setattr(self, "lin" + str(layer), nn.Linear(dims[layer], out_dim))
+
+            # if weight_norm and layer in self.norm_layers:
+            #     setattr(
+            #         self,
+            #         "lin" + str(layer),
+            #         nn.utils.weight_norm(QuadraticLayer(dims[layer], out_dim)),
+            #     )
+            # else:
+            #     setattr(self, "lin" + str(layer), QuadraticLayer(dims[layer], out_dim))
+                    
+            if layer != self.num_layers - 2:
                 setattr(self, "lin" + str(layer), nn.Linear(dims[layer], out_dim))
+            else:
+                setattr(self, "lin" + str(layer), QuadraticLayer(dims[layer], out_dim))
+            
+            # if layer < self.num_layers - 3:
+            #     setattr(self, "lin" + str(layer), nn.Linear(dims[layer], out_dim))
+            # else:
+            #     setattr(self, "lin" + str(layer), QuadraticLayer(dims[layer], out_dim))
             
             # Batch Norm is not used in DeepLS
             # if (
@@ -121,3 +142,28 @@ class Decoder(nn.Module):
         #     x = self.th(x)
 
         return x
+
+
+
+class QuadraticLayer(nn.Module):
+    def __init__(self, in_features, out_features):
+        super(QuadraticLayer, self).__init__()
+        self.in_features = in_features
+        self.out_features = out_features
+        self.linear = nn.Linear(in_features, out_features)
+
+        # Define the quadratic weight
+        self.quad_weights = nn.Parameter(torch.randn(in_features, out_features, in_features))
+        self._init_quad_weight(self.quad_weights)
+    
+    def _init_quad_weight(self, weight):
+        init.kaiming_uniform_(weight, a=math.sqrt(5))
+
+    def forward(self, x):
+        # Linear part
+        linear_output = self.linear(x)
+
+        # Quadratic part
+        quad_output = torch.einsum('bi,ioj,bj->bo', x, self.quad_weights, x)
+
+        return linear_output + quad_output

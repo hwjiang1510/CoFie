@@ -23,26 +23,26 @@
   "LearningRateSchedule" : [
     {
       "Type" : "Step",
-      "Initial" : 0.01,
+      "Initial" : 0.0005,
       "Interval" : 250,
       "Factor" : 0.5
     },
     {
       "Type" : "Step",
-      "Initial" : 0.01,
+      "Initial" : 0.001,
       "Interval" : 250,
       "Factor" : 0.5
     }],
   "Seed": 0,
-  "SampleScenePerBatch": 24,
-  "SampleVoxelPerScene": 2000,
-  "SamplePointPerVoxel": 8,
+  "SampleScenePerBatch": 12,
+  "SampleVoxelPerScene": 3000,
+  "SamplePointPerVoxel": 24,
   "DataLoaderThreads" : 24,
   "ClampingDistance" : 0.1,
   "CodeRegularization" : true,
   "CodeRegularizationLambda" : 1e-4,
   "CodeBound" : 1.0,
   "VoxelResolution" : 32,
-  "VolumeSizeHalf" : 1.2,
+  "VolumeSizeHalf" : 1.0,
   "ConsistenyLossExpandRadius" : 1.5
 }

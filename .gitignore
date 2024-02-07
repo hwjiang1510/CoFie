@@ -1,3 +1,12 @@
 /data
 *.pth
 /wiki
+/data3
+/examples/all/
+/examples/all*
+/examples/save/
+/examples/nglod/
+/__pycache__
+/.vscode
+/bin
+/build

@@ -7,6 +7,7 @@ import signal
 import sys
 import time
 import random
+import pprint
 import warnings
 import deep_ls
 import deep_ls.workspace as ws
@@ -14,7 +15,10 @@ import torch
 import torch.utils.data as data_utils
 import torch.distributed as dist
 import numpy as np
-from utils import train_utils, dist_utils, train_script
+from utils import train_utils, dist_utils, train_script, geo_utils, loss_utils
+from deep_ls.data_voxel import VoxelBased_SDFSamples
+from deep_ls.data_voxel_global import SDFSamples
+
 
 
 def signal_handler(sig, frame):
@@ -23,13 +27,18 @@ def signal_handler(sig, frame):
 
 
 def main(exp_dir, continue_from):
-    logging.info("running " + exp_dir)
-    logging.info("training with {} GPU(s)".format(torch.cuda.device_count()))
+    logger = train_utils.get_logger(exp_dir)
+
+    logger.info("running " + exp_dir)
+    logger.info("training with {} GPU(s)".format(torch.cuda.device_count()))
     signal.signal(signal.SIGINT, signal_handler)
 
     # get training specifications
     config = ws.load_experiment_specifications(exp_dir)
-    logging.info("Experiment description: \n" + str(config["Description"]))
+    logger.info(pprint.pformat(config))
+
+    # get experiment description
+    logger.info("Experiment description: \n" + str(config["Description"]))
 
     # set random seeds
     torch.cuda.manual_seed_all(config["Seed"])
@@ -55,7 +64,8 @@ def main(exp_dir, continue_from):
                                                                         config["VolumeSizeHalf"]).reshape(-1,3)
 
     # get dataset
-    dataset = deep_ls.data_voxel.VoxelBased_SDFSamples(config, voxel_coordinates, split='train', load_ram=True)
+    dataset = VoxelBased_SDFSamples(config, voxel_coordinates, split='train', load_ram=True)
+    #dataset = SDFSamples(config, split='train', load_ram=False)
     #data_sampler = torch.utils.data.distributed.DistributedSampler(dataset)
     data_loader = torch.utils.data.DataLoader(dataset,
                                                batch_size=config["SampleScenePerBatch"],
@@ -67,11 +77,68 @@ def main(exp_dir, continue_from):
 
     # get number of valid voxels
     num_valid_voxels = dataset.num_valid_voxel
-    logging.info("Valid voxel number: " + str(num_valid_voxels))
+    logger.info("Valid voxel number: " + str(num_valid_voxels))
+
+    # get coordinate field configuration
+    coord_field_mode = train_utils.get_spec_with_default(config, 'CoordinateFieldMode', 'none')
+    code_length = config["CodeLength"]
+    if coord_field_mode == 'rotation_only':
+        code_additional = 4     # 4-d rotation quaternion
+    elif coord_field_mode == 'none':
+        code_additional = 0
+    elif coord_field_mode == 'rotation_scale':
+        code_additional = 4 + 3 # 4-d rotation quaternion & 3-d scale
+    elif coord_field_mode == 'computed':
+        code_additional = 0
+    elif coord_field_mode == 'computed_rotation_only':
+        code_additional = 4
+    elif coord_field_mode == 'rotation_location':
+        code_additional = 7 # 4+3
+    elif coord_field_mode == 'computed_rotation_location':
+        code_additional = 7 # 4+3
+    else:
+        raise NotImplementedError
+    logger.info("Using coordinate field mode: {}".format(coord_field_mode))
 
     # get latent code
-    lat_vecs = torch.nn.Embedding(num_valid_voxels, config["CodeLength"], max_norm=config["CodeBound"])
+    lat_vecs = torch.nn.Embedding(num_valid_voxels, code_length + code_additional, max_norm=config["CodeBound"])
     torch.nn.init.normal_(lat_vecs.weight.data, 0.0, 1.0 / math.sqrt(config["CodeLength"]))
+    if coord_field_mode == 'rotation_only':
+        rot_init = torch.tensor([[1.0, 0, 0], [0, 1.0, 0], [0, 0, 1.0]]).view(1,3,3)
+        quat_init = geo_utils.mat2quat_transform(rot_init)   # [1,4]
+        quat_init = quat_init.repeat(num_valid_voxels, 1)
+        lat_vecs.weight.data[:, code_length:] = quat_init
+    elif coord_field_mode == 'none':
+        pass
+    elif coord_field_mode == 'rotation_scale':
+        rot_init = torch.tensor([[1.0, 0, 0], [0, 1.0, 0], [0, 0, 1.0]]).view(1,3,3)
+        quat_init = geo_utils.mat2quat_transform(rot_init)   # [1,4]
+        quat_init = quat_init.repeat(num_valid_voxels, 1)
+        lat_vecs.weight.data[:, code_length:code_length+4] = quat_init
+        lat_vecs.weight.data[:, code_length+4] = 1.0
+    elif coord_field_mode == 'computed':
+        pass
+    elif coord_field_mode == 'computed_rotation_only':
+        rot_all = dataset.computed_rotation # [num_valid_voxels, 3, 3]
+        assert rot_all.shape[0] == num_valid_voxels
+        quat_all = geo_utils.mat2quat_transform(rot_all)   # [num_valid_voxels, 4]
+        lat_vecs.weight.data[:, code_length:] = quat_all
+    elif coord_field_mode == 'rotation_location':
+        rot_init = torch.tensor([[1.0, 0, 0], [0, 1.0, 0], [0, 0, 1.0]]).view(1,3,3)
+        quat_init = geo_utils.mat2quat_transform(rot_init)   # [1,4]
+        quat_init = quat_init.repeat(num_valid_voxels, 1)
+        loc_init = torch.tensor([[0.0, 0, 0]]).repeat(num_valid_voxels, 1)
+        lat_vecs.weight.data[:, code_length:code_length+4] = quat_init
+        lat_vecs.weight.data[:, code_length+4:] = loc_init
+    elif coord_field_mode == 'computed_rotation_location':
+        rot_all = dataset.computed_rotation # [num_valid_voxels, 3, 3]
+        assert rot_all.shape[0] == num_valid_voxels
+        quat_all = geo_utils.mat2quat_transform(rot_all)   # [num_valid_voxels, 4]
+        loc_init = torch.tensor([[0.0, 0, 0]]).repeat(num_valid_voxels, 1)
+        lat_vecs.weight.data[:, code_length:code_length+4] = quat_all
+        lat_vecs.weight.data[:, code_length+4:] = loc_init
+    else:
+        raise NotImplementedError
 
     # build decoder
     arch = __import__("networks." + config["NetworkArch"], fromlist=["Decoder"])
@@ -94,7 +161,14 @@ def main(exp_dir, continue_from):
     )
 
     # get loss
-    loss = torch.nn.L1Loss(reduction="none")
+    loss_type = train_utils.get_spec_with_default(config, 'Loss', 'L1')
+    logger.info('Using loss {}'.format(loss_type))
+    if loss_type == 'L1':
+        loss = torch.nn.L1Loss(reduction="none")
+    elif loss_type == 'L2':
+        loss = torch.nn.MSELoss(reduction='none')
+    else:
+        raise NotImplementedError
 
     # resume
     loss_log = []
@@ -104,7 +178,7 @@ def main(exp_dir, continue_from):
     param_mag_log = {}
     start_epoch = 0
     if continue_from is not None:
-        logging.info('continuing from "{}"'.format(continue_from))
+        logger.info('continuing from "{}"'.format(continue_from))
         lat_epoch = train_utils.load_latent_vectors(exp_dir, continue_from + ".pth", lat_vecs)
         model_epoch = ws.load_model_parameters(exp_dir, continue_from, decoder)
         optimizer_epoch = train_utils.load_optimizer(exp_dir, continue_from + ".pth", optimizer_all)
@@ -117,17 +191,16 @@ def main(exp_dir, continue_from):
                     model_epoch, optimizer_epoch, lat_epoch, log_epoch))
         start_epoch = model_epoch + 1
 
-    logging.info("starting from epoch {}".format(start_epoch))
-    logging.info("Number of decoder parameters: {}".format(
+    logger.info("starting from epoch {}".format(start_epoch))
+    logger.info("Number of decoder parameters: {}".format(
             sum(p.data.nelement() for p in decoder.parameters())))
-    logging.info("Number of shape code parameters: {} (# codes {}, code dim {})".format(
+    logger.info("Number of shape code parameters: {} (# codes {}, code dim {})".format(
             lat_vecs.num_embeddings * lat_vecs.embedding_dim,
             lat_vecs.num_embeddings, lat_vecs.embedding_dim,))
-    logging.info(
-        "initialized with mean magnitude {}".format(
-            train_utils.get_mean_latent_vector_magnitude(lat_vecs)
-        )
-    )
+    logger.info("initialized with mean magnitude {}".format(
+            train_utils.get_mean_latent_vector_magnitude(lat_vecs, code_length)))
+    logger.info("code length {}, additional coordinate field code length {}".format(
+            code_length, code_additional))
 
     # to cuda
     # decoder = decoder.to(device)
@@ -141,7 +214,9 @@ def main(exp_dir, continue_from):
     #     lat_vecs = torch.nn.parallel.DistributedDataParallel(lat_vecs, device_ids=[local_rank], find_unused_parameters=False)
     #     device_num = len(device_ids)
     #     ddp = True
+    #breakpoint()
     decoder = decoder.to(device)
+    lat_vecs = lat_vecs.to(device)
     decoder = torch.nn.parallel.DataParallel(decoder)
     lat_vecs = torch.nn.parallel.DataParallel(lat_vecs)
 
@@ -153,6 +228,7 @@ def main(exp_dir, continue_from):
     # decrease lr epoch number
     decrease_lr_epoch0 = epoch_end // 8
     decrease_lr_epochs = [(it+1) * decrease_lr_epoch0 for it in range(8)]
+    print('Decrease learning rate at {} epoches'.format(decrease_lr_epochs))
 
     # train
     for epoch in range(start_epoch, epoch_end+1):
@@ -167,14 +243,16 @@ def main(exp_dir, continue_from):
         timing_log.append(end - start)
         #lr_log.append([schedule.get_learning_rate(epoch) for schedule in lr_schedules])
         lr_log.append(optimizer_all.param_groups[0]["lr"])
-        lat_mag_log.append(train_utils.get_mean_latent_vector_magnitude(lat_vecs.module))
+
+        train_utils.save_latest(exp_dir, epoch, decoder, optimizer_all, lat_vecs)
+
+        lat_mag_log.append(train_utils.get_mean_latent_vector_magnitude(lat_vecs.module, code_length))
         train_utils.append_parameter_magnitudes(param_mag_log, decoder)
         
         #if epoch in saving_epochs:
         train_utils.save_checkpoints(exp_dir, epoch, decoder, optimizer_all, lat_vecs)
 
         #if epoch % train_utils.get_spec_with_default(config, "LogFrequency", 10) == 0:
-        train_utils.save_latest(exp_dir, epoch, decoder, optimizer_all, lat_vecs)
         train_utils.save_logs(
             exp_dir,
             loss_log,
@@ -213,6 +291,6 @@ if __name__ == "__main__":
     deep_ls.add_common_args(arg_parser)
 
     args = arg_parser.parse_args()
-    deep_ls.configure_logging(args)
+    #deep_ls.configure_logging(args)
 
     main(args.experiment_directory, args.continue_from)

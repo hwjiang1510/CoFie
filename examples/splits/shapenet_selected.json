@@ -1,0 +1,45 @@
+{
+    "ShapeNetV2": {
+      "03001627": [
+        "cbcc5cd1aec9f3413aa677469bbdd68c",
+        "cbe006da89cca7ffd6bab114dd47e3f",
+        "cc1b4eb1a9164e04f06885bd08de3f64",
+        "cc8fe2000b1471b2a85f7c85e000fc79",
+        "cc665438c4f7baab137d9700e13a503f",
+        "cd7674dec40cb30f30e06a011e63236a",
+        "ce055b7a4cccc7e182db9fca4b68095",
+        "ce387113cca9c0754d33a7fd9c37a7d2"
+      ],
+      "03636649": [
+        "d2d76338428129f62ffd6bbc7610ab0",
+        "d3f84442201b6c137fb7f79251dd7727",
+        "d34a10201a5448a253cf897b7fc1d12",
+        "d190d56a1e6213e420ebca9c2a65e97d",
+        "d83fc71f3978130e335fe03ac3704320",
+        "da8141b45da808199a06a7de97b096dc",
+        "daaca6107846a666a8737fcf23389014"
+      ],
+      "02691156": [
+        "d3b9114df1d8a3388e415c6cf89025f0",
+        "d24e6c81b5261fe5ca2bd098b9203af",
+        "d605a53c0917acada80799ffaf21ea7d",
+        "d2815b419e61dbb0b87697d3904b168b",
+        "d629589ee52d48ee4d210d9468aedaf2",
+        "d1119217281b8475fe755e3418b63110"
+      ],
+      "04256520": [
+        "ccd0c5e06744ad9a5ca7e476d2d4a26e",
+        "cceaeed0d8cf5bdbca68d7e2f215cb19",
+        "ce99ea72f222e7d58bf939d21e50c410",
+        "cef25c3f7412814b4b3c42e318f3affc"
+      ],
+      "04379243": [
+        "cda2b04eb27a6b429ccce4c6d5bb195f",
+        "ce1bfb999b211d423825a5bc524f67c9",
+        "ce1c3321de30433b16ec4c6284dcbcbe",
+        "cf52e17b21021ad9490ad276cd2af3a4"
+      ]
+    }
+  }
+  
+  

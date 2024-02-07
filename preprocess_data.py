@@ -78,7 +78,8 @@ def append_data_source_map(data_dir, name, source):
         with open(data_source_map_filename, "w") as f:
             json.dump(data_source_map, f, indent=2)
 
-
+# python preprocess_data.py --data_dir /scratch/cluster/hwjiang/dataset/deepls/data --source /vision/vision_data/ShapeNetCore.v2/ --name ShapeNetV2 --split examples/splits/sv2_all_test_small.json --test --skip
+# python preprocess_data.py --data_dir /scratch/cluster/hwjiang/dataset/deepls/data --source /vision/vision_data/ShapeNetCore.v2/ --name ShapeNetV2 --split examples/splits/55cat_train.json --skip
 if __name__ == "__main__":
 
     arg_parser = argparse.ArgumentParser(
@@ -124,7 +125,7 @@ if __name__ == "__main__":
     arg_parser.add_argument(
         "--threads",
         dest="num_threads",
-        default=8,
+        default=8, #1,#8,
         help="The number of threads to use to process the data.",
     )
     arg_parser.add_argument(
@@ -199,6 +200,7 @@ if __name__ == "__main__":
     for class_dir in class_directories:
         class_path = os.path.join(args.source_dir, class_dir)
         instance_dirs = class_directories[class_dir]
+        #breakpoint()
 
         logging.debug(
             "Processing " + str(len(instance_dirs)) + " instances of class " + class_dir
@@ -210,15 +212,17 @@ if __name__ == "__main__":
             os.mkdir(target_dir)
 
         for instance_dir in instance_dirs:
-
+            #breakpoint()
             shape_dir = os.path.join(class_path, instance_dir)
-
             processed_filepath = os.path.join(target_dir, instance_dir + extension)
+            #print('processing {}'.format(processed_filepath))
+
             if args.skip and os.path.isfile(processed_filepath):
                 logging.debug("skipping " + processed_filepath)
                 continue
 
             try:
+                print('processing {}'.format(processed_filepath))
                 mesh_filename = deep_ls.data.find_mesh_in_directory(shape_dir)
 
                 specific_args = []
@@ -243,7 +247,6 @@ if __name__ == "__main__":
                         specific_args,
                     )
                 )
-
             except deep_ls.data.NoMeshFileError:
                 logging.warning("No mesh found for instance " + instance_dir)
             except deep_ls.data.MultipleMeshFileError:

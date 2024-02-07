@@ -77,17 +77,23 @@ def evaluate(experiment_directory, checkpoint, data_dir, split_filename):
                     (os.path.join(dataset, class_name, instance_name), chamfer_dist)
                 )
 
-    with open(
-        os.path.join(
+    save_path = os.path.join(
             ws.get_evaluation_dir(experiment_directory, checkpoint, True), "chamfer.csv"
-        ),
+        )
+    if 'data2' in data_dir:
+        save_path = save_path.replace('chamfer.csv', 'chamfer_unseen.csv')
+    with open(
+        save_path,
         "w",
     ) as f:
         f.write("shape, chamfer_dist\n")
         for result in chamfer_results:
             f.write("{}, {}\n".format(result[0], result[1]))
 
-
+# python evaluate.py -e examples/sofas -c 2000 -d data -s examples/splits/sv2_sofas_test.json
+# python evaluate.py -e examples/all -c 18 -d data -s examples/splits/sv2_all_test.json
+# python evaluate.py -e examples/all_coord_rotation -c 18 -d data -s examples/splits/sv2_all_test.json
+# python evaluate.py -e examples/all -c 18 -d data2 -s examples/splits/10cat_test.json
 if __name__ == "__main__":
 
     arg_parser = argparse.ArgumentParser(description="Evaluate a DeepLS autodecoder")

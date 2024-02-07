@@ -5,11 +5,16 @@ in src/utils.h make #include <nanoflann.hpp>
 python preprocess_data.py --data_dir /vision/vision_data/ShapeNetSDF/ --source /vision/vision_data/ShapeNetCore.v2/ --name ShapeNetV2 --split examples/splits/sv2_sofas_train.json --skip
 export PANGOLIN_WINDOW_URI=headless://
 python train_deep_sdf.py -e examples/all2
+export MESA_GL_VERSION_OVERRIDE=3.3
 
 python preprocess_data.py --data_dir data --source /vision/vision_data/ShapeNetCore.v2/ --name ShapeNetV2 --split examples/splits/sv2_all_test_small.json --test --skip
 
-python reconstruct.py -e examples/all2 -c 2000 --split examples/splits/sv2_all_test_small.json -d data --skip
-python evaluate.py -e examples/all2 -c 2000 -d data -s examples/splits/sv2_all_test_small.json
+python reconstruct.py -e examples/all -c 2000 --split examples/splits/sv2_all_test_small.json -d data --skip
+python evaluate.py -e examples/all -c 2000 -d data -s examples/splits/sv2_all_test_small.json
+
+
+# for nglod data
+python preprocess_data.py --data_dir data3 --source /vision/hwjiang/datasets/nglod --name nglod --split examples/splits/nglod_test.json --skip
 
 
 scp -r hwjiang@bo.cs.utexas.edu:/vision/hwjiang/3d_generation/DeepLocalShapes/examples/all/Reconstructions/1000/Meshes/ShapeNetV2/02691156/d0456644386d9149ce593c35f70d3f.ply G:\deepls\recon\02691156_d0456644386d9149ce593c35f70d3f_1000.ply
