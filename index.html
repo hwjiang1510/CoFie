@@ -24,8 +24,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-  <title>Academic Project Page</title>
-  <link rel="icon" type="image/x-icon" href="static/images/favicon.ico">
+  <title>OmniGlue: Generalizable Feature Matching with Foundation Model Guidance</title>
+  <link rel="icon" type="image/x-icon" href="static/images/glue.png">
   <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
   rel="stylesheet">
 
@@ -47,62 +47,71 @@
 <body>
 
 
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <a class="navbar-item" href="https://keunhong.com">
+      <span class="icon">
+          <i class="fas fa-home"></i>
+      </span>
+      </a>
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          More Research on Correspondence Learning
+        </a>
+        <div class="navbar-dropdown">
+		  <a class="navbar-item" href="https://arxiv.org/pdf/2303.12779.pdf">
+            LFM3D - Harnessing generalizable 3D signals for wide-baseline image matching
+          </a>
+          <a class="navbar-item" href="https://hwjiang1510.github.io/LEAP/">
+            LEAP - Sparse-view reconstruction from unposed images with emerging implicit correspondences
+          </a>
+          <a class="navbar-item" href="https://ut-austin-rpl.github.io/Doduo/">
+            Doduo - Unsupervised learning for dense correspondences using in-the-wild videos
+          </a>
+          <a class="navbar-item" href="https://hwjiang1510.github.io/VQLoC/">
+            VQLoc - Localizing any visual queries in long-form videos using correspondences
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
   <section class="hero">
     <div class="hero-body">
       <div class="container is-max-desktop">
         <div class="columns is-centered">
           <div class="column has-text-centered">
-            <h1 class="title is-1 publication-title">Academic Project Page</h1>
+            <h1 class="title is-1 publication-title">OmniGlue: Generalizable Feature Matching with Foundation Model Guidance</h1>
             <div class="is-size-5 publication-authors">
               <!-- Paper authors -->
               <span class="author-block">
-                <a href="FIRST AUTHOR PERSONAL LINK" target="_blank">First Author</a><sup>*</sup>,</span>
+                <a href="https://hwjiang1510.github.io/" target="_blank">Hanwen Jiang</a><sup>1</sup>,</span>
                 <span class="author-block">
-                  <a href="SECOND AUTHOR PERSONAL LINK" target="_blank">Second Author</a><sup>*</sup>,</span>
+                  <a href="https://scholar.google.com/citations?user=jgSItF4AAAAJ&hl=en" target="_blank">Arjun Karpur</a><sup>2</sup>,</span>
+				  <span class="author-block">
+                  <a href="https://scholar.google.com/citations?user=7EeSOcgAAAAJ&hl=en" target="_blank">Bingyi Cao</a><sup>2</sup>,</span>
+				  <span class="author-block">
+                  <a href="https://www.cs.utexas.edu/~huangqx/index.html" target="_blank">Qixing Huang</a><sup>1</sup>,</span>
                   <span class="author-block">
-                    <a href="THIRD AUTHOR PERSONAL LINK" target="_blank">Third Author</a>
+                    <a href="https://andrefaraujo.github.io/" target="_blank">Andre Araujo</a><sup>2</sup>
                   </span>
                   </div>
 
                   <div class="is-size-5 publication-authors">
-                    <span class="author-block">Institution Name<br>Conferance name and year</span>
-                    <span class="eql-cntrb"><small><br><sup>*</sup>Indicates Equal Contribution</small></span>
+                    <span class="author-block"><sup>1</sup>UT Austin&nbsp;&nbsp;&nbsp;&nbsp; <sup>2</sup>Google Research<br>CVPR 2024</span>
                   </div>
-
-                  <div class="column has-text-centered">
-                    <div class="publication-links">
-                         <!-- Arxiv PDF link -->
-                      <span class="link-block">
-                        <a href="https://arxiv.org/pdf/<ARXIV PAPER ID>.pdf" target="_blank"
-                        class="external-link button is-normal is-rounded is-dark">
-                        <span class="icon">
-                          <i class="fas fa-file-pdf"></i>
-                        </span>
-                        <span>Paper</span>
-                      </a>
-                    </span>
-
-                    <!-- Supplementary PDF link -->
-                    <span class="link-block">
-                      <a href="static/pdfs/supplementary_material.pdf" target="_blank"
-                      class="external-link button is-normal is-rounded is-dark">
-                      <span class="icon">
-                        <i class="fas fa-file-pdf"></i>
-                      </span>
-                      <span>Supplementary</span>
-                    </a>
-                  </span>
-
-                  <!-- Github link -->
-                  <span class="link-block">
-                    <a href="https://github.com/YOUR REPO HERE" target="_blank"
-                    class="external-link button is-normal is-rounded is-dark">
-                    <span class="icon">
-                      <i class="fab fa-github"></i>
-                    </span>
-                    <span>Code</span>
-                  </a>
-                </span>
 
                 <!-- ArXiv abstract Link -->
                 <span class="link-block">
@@ -114,6 +123,18 @@
                   <span>arXiv</span>
                 </a>
               </span>
+			  
+			  <!-- Github link -->
+                  <span class="link-block">
+                    <a href="https://github.com/hwjiang1510/OmniGlue" target="_blank"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <span>Code</span>
+                  </a>
+                </span>
+				
             </div>
           </div>
         </div>
@@ -123,23 +144,6 @@
 </section>
 
 
-<!-- Teaser video-->
-<section class="hero teaser">
-  <div class="container is-max-desktop">
-    <div class="hero-body">
-      <video poster="" id="tree" autoplay controls muted loop height="100%">
-        <!-- Your video here -->
-        <source src="static/videos/banner_video.mp4"
-        type="video/mp4">
-      </video>
-      <h2 class="subtitle has-text-centered">
-        Aliquam vitae elit ullamcorper tellus egestas pellentesque. Ut lacus tellus, maximus vel lectus at, placerat pretium mi. Maecenas dignissim tincidunt vestibulum. Sed consequat hendrerit nisl ut maximus. 
-      </h2>
-    </div>
-  </div>
-</section>
-<!-- End teaser video -->
-
 <!-- Paper abstract -->
 <section class="section hero is-light">
   <div class="container is-max-desktop">
@@ -148,7 +152,13 @@
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ullamcorper tellus sed ante aliquam tempus. Etiam porttitor urna feugiat nibh elementum, et tempor dolor mattis. Donec accumsan enim augue, a vulputate nisi sodales sit amet. Proin bibendum ex eget mauris cursus euismod nec et nibh. Maecenas ac gravida ante, nec cursus dui. Vivamus purus nibh, placerat ac purus eget, sagittis vestibulum metus. Sed vestibulum bibendum lectus gravida commodo. Pellentesque auctor leo vitae sagittis suscipit.
+            The image matching field has been witnessing a continuous emergence of novel learnable feature matching techniques, with ever-improving performance on conventional benchmarks.
+			However, our investigation shows that despite these gains, their potential for real-world applications is restricted by their limited generalization capabilities to novel image domains.
+			In this paper, we introduce OmniGlue, the first learnable image matcher that is designed with generalization as a core principle.
+			OmniGlue leverages broad knowledge from a vision foundation model to guide the feature matching process, boosting generalization to domains not seen at training time.
+			Additionally, we propose a novel keypoint position-guided attention mechanism which disentangles spatial and appearance information, leading to enhanced matching descriptors.
+			We perform comprehensive experiments on a suite of 6 datasets with varied image domains, including scene-level, object-centric and aerial images.
+			OmniGlue's novel components lead to relative gains on unseen domains of 20.9% with respect to a directly comparable reference model SuperGlue, while also outperforming the recent LightGlue method by 9.5% relatively.
           </p>
         </div>
       </div>
@@ -157,39 +167,129 @@
 </section>
 <!-- End paper abstract -->
 
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered has-text-centered">
+      <!-- <div class="column is-full-width has-text-centered"> -->
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">OmniGlue Framework</h2>
+        <div class="content has-text-justified">
+            <p>
+                OmniGlue is the first learnable image matcher that is de-signed with generalization as a core principle. 
+				OmniGlue benefits from two designs: foundation model guidance and keypoint-position attention guidance. 
+				The visual foundation model, which is trained on large-scale data, provides coarse but generalizable correspondence cues. It huides the inter-image feature propagation process.
+				The keypoint-position attention guidance disentangles the positional informatation from the keypoint features, which avoids the model specializing too strongly in the training dis-tribution of keypoints and relative pose transformations.
+            </p>
+            <div class="box m-5">
+            <div class="content has-text-centered">
+                <img src="static/images/framework.png" width="100%" alt="OmniGlue" />
+            </div>
+            </div>
+        </div>
+    </div>
+    </div>
+  </div>
+</section>
+
 
 <!-- Image carousel -->
 <section class="hero is-small">
+<h2 class="title is-3", align="center">In-domain Data Results</h2>
   <div class="hero-body">
     <div class="container">
       <div id="results-carousel" class="carousel results-carousel">
        <div class="item">
         <!-- Your image here -->
-        <img src="static/images/carousel1.jpg" alt="MY ALT TEXT"/>
-        <h2 class="subtitle has-text-centered">
-          First image description.
-        </h2>
+        <img src="static/images/md-vis/image-000.jpg" alt="MY ALT TEXT"/>
       </div>
       <div class="item">
         <!-- Your image here -->
-        <img src="static/images/carousel2.jpg" alt="MY ALT TEXT"/>
-        <h2 class="subtitle has-text-centered">
-          Second image description.
-        </h2>
+        <img src="static/images/md-vis/image-001.jpg" alt="MY ALT TEXT"/>
       </div>
       <div class="item">
         <!-- Your image here -->
-        <img src="static/images/carousel3.jpg" alt="MY ALT TEXT"/>
-        <h2 class="subtitle has-text-centered">
-         Third image description.
-       </h2>
+        <img src="static/images/md-vis/image-002.jpg" alt="MY ALT TEXT"/>
      </div>
      <div class="item">
       <!-- Your image here -->
-      <img src="static/images/carousel4.jpg" alt="MY ALT TEXT"/>
-      <h2 class="subtitle has-text-centered">
-        Fourth image description.
-      </h2>
+      <img src="static/images/md-vis/image-003.jpg" alt="MY ALT TEXT"/>
+    </div>
+	<div class="item">
+      <!-- Your image here -->
+      <img src="static/images/md-vis/image-004.jpg" alt="MY ALT TEXT"/>
+    </div>
+	<div class="item">
+      <!-- Your image here -->
+      <img src="static/images/md-vis/image-005.jpg" alt="MY ALT TEXT"/>
+    </div>
+  </div>
+</div>
+</div>
+</section>
+<!-- End image carousel -->
+
+
+<!-- Image carousel -->
+<section class="hero is-small">
+<h2 class="title is-3", align="center">Out-of-domain Data Results</h2>
+  <div class="hero-body">
+    <div class="container">
+      <div id="results-carousel" class="carousel results-carousel">
+       <div class="item">
+        <!-- Your image here -->
+        <img src="static/images/ood-vis/0.jpg" alt="MY ALT TEXT"/>
+      </div>
+      <div class="item">
+        <!-- Your image here -->
+        <img src="static/images/ood-vis/1.jpg" alt="MY ALT TEXT"/>
+      </div>
+      <div class="item">
+        <!-- Your image here -->
+        <img src="static/images/ood-vis/2.jpg" alt="MY ALT TEXT"/>
+     </div>
+     <div class="item">
+      <!-- Your image here -->
+      <img src="static/images/ood-vis/3.jpg" alt="MY ALT TEXT"/>
+    </div>
+	<div class="item">
+      <!-- Your image here -->
+      <img src="static/images/ood-vis/4.jpg" alt="MY ALT TEXT"/>
+    </div>
+	<div class="item">
+      <!-- Your image here -->
+      <img src="static/images/ood-vis/5.jpg" alt="MY ALT TEXT"/>
+    </div>
+	<div class="item">
+      <!-- Your image here -->
+      <img src="static/images/ood-vis/6.jpg" alt="MY ALT TEXT"/>
+    </div>
+	<div class="item">
+      <!-- Your image here -->
+      <img src="static/images/ood-vis/7.jpg" alt="MY ALT TEXT"/>
+    </div>
+	<div class="item">
+      <!-- Your image here -->
+      <img src="static/images/ood-vis/8.jpg" alt="MY ALT TEXT"/>
+    </div>
+	<div class="item">
+      <!-- Your image here -->
+      <img src="static/images/ood-vis/9.jpg" alt="MY ALT TEXT"/>
+    </div>
+	<div class="item">
+      <!-- Your image here -->
+      <img src="static/images/ood-vis/10.jpg" alt="MY ALT TEXT"/>
+    </div>
+	<div class="item">
+      <!-- Your image here -->
+      <img src="static/images/ood-vis/11.jpg" alt="MY ALT TEXT"/>
+    </div>
+	<div class="item">
+      <!-- Your image here -->
+      <img src="static/images/ood-vis/12.jpg" alt="MY ALT TEXT"/>
+    </div>
+	<div class="item">
+      <!-- Your image here -->
+      <img src="static/images/ood-vis/12.jpg" alt="MY ALT TEXT"/>
     </div>
   </div>
 </div>
@@ -199,86 +299,17 @@
 
 
 
-
-<!-- Youtube video -->
-<section class="hero is-small is-light">
-  <div class="hero-body">
-    <div class="container">
-      <!-- Paper video. -->
-      <h2 class="title is-3">Video Presentation</h2>
-      <div class="columns is-centered has-text-centered">
-        <div class="column is-four-fifths">
-          
-          <div class="publication-video">
-            <!-- Youtube embed code here -->
-            <iframe src="https://www.youtube.com/embed/JkaxUblCGz0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-<!-- End youtube video -->
-
-
-<!-- Video carousel -->
-<section class="hero is-small">
-  <div class="hero-body">
-    <div class="container">
-      <h2 class="title is-3">Another Carousel</h2>
-      <div id="results-carousel" class="carousel results-carousel">
-        <div class="item item-video1">
-          <video poster="" id="video1" autoplay controls muted loop height="100%">
-            <!-- Your video file here -->
-            <source src="static/videos/carousel1.mp4"
-            type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-video2">
-          <video poster="" id="video2" autoplay controls muted loop height="100%">
-            <!-- Your video file here -->
-            <source src="static/videos/carousel2.mp4"
-            type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-video3">
-          <video poster="" id="video3" autoplay controls muted loop height="100%">\
-            <!-- Your video file here -->
-            <source src="static/videos/carousel3.mp4"
-            type="video/mp4">
-          </video>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-<!-- End video carousel -->
-
-
-
-
-
-
-<!-- Paper poster -->
-<section class="hero is-small is-light">
-  <div class="hero-body">
-    <div class="container">
-      <h2 class="title">Poster</h2>
-
-      <iframe  src="static/pdfs/sample.pdf" width="100%" height="550">
-          </iframe>
-        
-      </div>
-    </div>
-  </section>
-<!--End paper poster -->
-
-
 <!--BibTex citation -->
   <section class="section" id="BibTeX">
     <div class="container is-max-desktop content">
       <h2 class="title">BibTeX</h2>
-      <pre><code>BibTex Code Here</code></pre>
+      <pre><code>@article{jiang2024Omniglue,
+   title={OmniGlue: Generalizable Feature Matching with Foundation Model Guidance},
+   author={Jiang, Hanwen and Karpur, Arjun and Cao, Bingyi and Huang, Qixing and Araujo, Andre},
+   journal={ArXiv},
+   year={2024},
+   volume={}
+}</code></pre>
     </div>
 </section>
 <!--End BibTex citation -->
