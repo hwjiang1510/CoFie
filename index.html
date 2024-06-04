@@ -1,39 +1,41 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-  <!-- Meta tags for social media banners, these should be filled in appropriatly as they are your "business card" -->
-  <!-- Replace the content tag with appropriate information -->
-  <meta name="description" content="DESCRIPTION META TAG">
-  <meta property="og:title" content="OmniGlue"/>
-  <meta property="og:description" content="SOCIAL MEDIA DESCRIPTION TAG TAG"/>
 
+<style>
+  .custom-hr {
+    border: 0;
+    height: 3px;
+    background: #1222;
+    margin: 20px 0;
+  }
+</style>
 
   <meta charset="utf-8">
   <!-- Meta tags for social media banners, these should be filled in appropriatly as they are your "business card" -->
   <!-- Replace the content tag with appropriate information -->
-  <meta name="description" content="DESCRIPTION META TAG">
-  <meta property="og:title" content="SOCIAL MEDIA TITLE TAG"/>
-  <meta property="og:description" content="SOCIAL MEDIA DESCRIPTION TAG TAG"/>
+  <meta name="description" content="CoFie: a compact and generalizable neural surface representation">
+  <meta property="og:title" content="CoFie"/>
+  <meta property="og:description" content="CoFie: a compact and generalizable neural surface representation"/>
   <meta property="og:url" content="URL OF THE WEBSITE"/>
   <!-- Path to banner image, should be in the path listed below. Optimal dimenssions are 1200X630-->
   <meta property="og:image" content="static/image/your_banner_image.png" />
   <meta property="og:image:width" content="1200"/>
-  <meta property="og:image:height" content="630"/>
+  <meta property="og:image:height" content="378"/>
 
 
-  <meta name="twitter:title" content="TWITTER BANNER TITLE META TAG">
-  <meta name="twitter:description" content="TWITTER BANNER DESCRIPTION META TAG">
+  <meta name="twitter:title" content="CoFie">
+  <meta name="twitter:description" content="CoFie: a compact and generalizable neural surface representation">
   <!-- Path to banner image, should be in the path listed below. Optimal dimenssions are 1200X600-->
   <meta name="twitter:image" content="static/images/your_twitter_banner_image.png">
   <meta name="twitter:card" content="summary_large_image">
   <!-- Keywords for your paper to be indexed by-->
-  <meta name="keywords" content="KEYWORDS SHOULD BE PLACED HERE">
+  <meta name="keywords" content="neural surface representation, coordinate fields">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-  <title>OmniGlue: Generalizable Feature Matching with Foundation Model Guidance</title>
-  <link rel="icon" type="image/x-icon" href="static/images/glue.png">
+  <title>CoFie: Learning Compact Neural Surface Representations with Coordinate Fields</title>
+  <link rel="icon" type="image/x-icon" href="static/images/cofie.png">
   <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
   rel="stylesheet">
 
@@ -71,24 +73,7 @@
       </span>
       </a>
 
-      <div class="navbar-item has-dropdown is-hoverable">
-        <a class="navbar-link">
-          More Research on Correspondence Learning
-        </a>
-        <div class="navbar-dropdown">
-		  <a class="navbar-item" href="https://arxiv.org/pdf/2303.12779.pdf">
-            LFM3D - Harnessing generalizable 3D signals for wide-baseline image matching
-          </a>
-          <a class="navbar-item" href="https://hwjiang1510.github.io/LEAP/">
-            LEAP - Sparse-view reconstruction from unposed images with emerging implicit correspondences
-          </a>
-          <a class="navbar-item" href="https://ut-austin-rpl.github.io/Doduo/">
-            Doduo - Unsupervised learning for dense correspondences using in-the-wild videos
-          </a>
-          <a class="navbar-item" href="https://hwjiang1510.github.io/VQLoC/">
-            VQLoc - Localizing any visual queries in long-form videos using correspondences
-          </a>
-        </div>
+      
       </div>
     </div>
 
@@ -101,29 +86,27 @@
       <div class="container is-max-desktop">
         <div class="columns is-centered">
           <div class="column has-text-centered">
-            <h1 class="title is-1 publication-title">OmniGlue: Generalizable Feature Matching with Foundation Model Guidance</h1>
+            <h1 class="title is-1 publication-title">CoFie: Learning Compact Neural Surface Representations with Coordinate Fields</h1>
             <div class="is-size-5 publication-authors">
               <!-- Paper authors -->
               <span class="author-block">
-                <a href="https://hwjiang1510.github.io/" target="_blank">Hanwen Jiang</a><sup>1</sup>,</span>
+                <a href="https://hwjiang1510.github.io/" target="_blank">Hanwen Jiang</a>,&nbsp;</span>
                 <span class="author-block">
-                  <a href="https://scholar.google.com/citations?user=jgSItF4AAAAJ&hl=en" target="_blank">Arjun Karpur</a><sup>2</sup>,</span>
+                  <a href="https://yanghtr.github.io/" target="_blank">Haitao Yang</a>,&nbsp;</span>
 				  <span class="author-block">
-                  <a href="https://scholar.google.com/citations?user=7EeSOcgAAAAJ&hl=en" target="_blank">Bingyi Cao</a><sup>2</sup>,</span>
+                  <a href="https://geopavlakos.github.io/" target="_blank">Georgios Pavlakos</a>,&nbsp;</span>
 				  <span class="author-block">
-                  <a href="https://www.cs.utexas.edu/~huangqx/index.html" target="_blank">Qixing Huang</a><sup>1</sup>,</span>
-                  <span class="author-block">
-                    <a href="https://andrefaraujo.github.io/" target="_blank">Andre Araujo</a><sup>2</sup>
+                  <a href="https://www.cs.utexas.edu/~huangqx/index.html" target="_blank">Qixing Huang</a></span>
                   </span>
                   </div>
 
                   <div class="is-size-5 publication-authors">
-                    <span class="author-block"><sup>1</sup>UT Austin&nbsp;&nbsp;&nbsp;&nbsp; <sup>2</sup>Google Research<br>CVPR 2024</span>
+                    <span class="author-block">UT Austin</span>
                   </div>
 
                 <!-- ArXiv abstract Link -->
                 <span class="link-block">
-                  <a href="https://arxiv.org/abs/2405.12979" target="_blank"
+                  <a href="https://arxiv.org/abs/" target="_blank"
                   class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                     <i class="ai ai-arxiv"></i>
@@ -134,7 +117,7 @@
 			  
 			  <!-- Github link -->
                   <span class="link-block">
-                    <a href="https://github.com/google-research/omniglue" target="_blank"
+                    <a href="https://github.com/" target="_blank"
                     class="external-link button is-normal is-rounded is-dark">
                     <span class="icon">
                       <i class="fab fa-github"></i>
@@ -160,13 +143,17 @@
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
           <p>
-            The image matching field has been witnessing a continuous emergence of novel learnable feature matching techniques, with ever-improving performance on conventional benchmarks.
-			However, our investigation shows that despite these gains, their potential for real-world applications is restricted by their limited generalization capabilities to novel image domains.
-			In this paper, we introduce OmniGlue, the first learnable image matcher that is designed with generalization as a core principle.
-			OmniGlue leverages broad knowledge from a vision foundation model to guide the feature matching process, boosting generalization to domains not seen at training time.
-			Additionally, we propose a novel keypoint position-guided attention mechanism which disentangles spatial and appearance information, leading to enhanced matching descriptors.
-			We perform comprehensive experiments on a suite of 6 datasets with varied image domains, including scene-level, object-centric and aerial images.
-			OmniGlue's novel components lead to relative gains on unseen domains of 20.9% with respect to a directly comparable reference model SuperGlue, while also outperforming the recent LightGlue method by 9.5% relatively.
+            This paper introduces CoFie, a novel local geometry-aware neural surface representation. 
+			CoFie is motivated by the theoretical analysis of local SDFs with quadratic approximation. 
+			We find that local shapes are highly compressive in an aligned coordinate frame defined by the normal and tangent directions of local shapes. 
+			Accordingly, we introduce Coordinate Field, which is a composition of coordinate frames of all local shapes. 
+			The Coordinate Field is optimizable and is used to transform the local shapes from the world coordinate frame to the aligned shape coordinate frame. 
+			It largely reduces the complexity of local shapes and benefits the learning of MLP-based implicit representations. 
+			Moreover, we introduce quadratic layers into the MLP to enhance expressiveness concerning local shape geometry. 
+			CoFie is a generalizable surface representation. 
+			It is trained on a curated set of 3D shapes and works on novel shape instances during testing. 
+			When using the same amount of parameters with prior works, CoFie reduces the shape error by 48% and 56% on novel instances of both training and unseen shape categories. 
+			Moreover, CoFie demonstrates comparable performance to prior works when using only 70% fewer parameters. 
           </p>
         </div>
       </div>
@@ -175,22 +162,45 @@
 </section>
 <!-- End paper abstract -->
 
+
 <section class="section">
   <div class="container">
     <div class="columns is-centered has-text-centered">
       <!-- <div class="column is-full-width has-text-centered"> -->
       <div class="column is-four-fifths">
-        <h2 class="title is-3">OmniGlue Framework</h2>
+        <h2 class="title is-3">Coordinate Field</h2>
         <div class="content has-text-justified">
             <p>
-                OmniGlue is the first learnable image matcher that is de-signed with generalization as a core principle. 
-				OmniGlue benefits from two designs: foundation model guidance and keypoint-position attention guidance. 
-				The visual foundation model, which is trained on large-scale data, provides coarse but generalizable correspondence cues. It huides the inter-image feature propagation process.
-				The keypoint-position attention guidance disentangles the positional informatation from the keypoint features, which avoids the model specializing too strongly in the training dis-tribution of keypoints and relative pose transformations.
+                CoFie is a local geometry-aware shape representation. 
+				(Left) CoFie divides a shape into non-overlapping local patches, where each local patch is represented by an MLP-based Signed Distance Function. 
+				(Right) CoFie introduces Coordinate Field, which attaches a coordinate frame to each local patch. It transforms local patches from the world coordinate system to an aligned coordinate system, reducing shape complexity.
             </p>
             <div class="box m-5">
             <div class="content has-text-centered">
-                <img src="static/images/framework.png" width="100%" alt="OmniGlue" />
+                <img src="static/images/teaser.jpg" width="100%" alt="cofie" />
+            </div>
+            </div>
+        </div>
+    </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered has-text-centered">
+      <!-- <div class="column is-full-width has-text-centered"> -->
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Training and Inference</h2>
+        <div class="content has-text-justified">
+            <p>
+                (Left) For preparing the data for training the MLP-based local implicit functions, we split the training shapes into local shapes and initialize their coordinate frames using PCA. 
+				(Right) During training, a point will be transformed to the aligned coordinate of all local shapes using the coordinate frame. The MLP takes the transformed point and the latent code of the local shape to predict its SDF value. During testing, we fix the MLP, optimizing the latent codes and coordinate fields of valid cells.
+            </p>
+            <div class="box m-5">
+            <div class="content has-text-centered">
+                <img src="static/images/overview.png" width="100%" alt="cofie" />
             </div>
             </div>
         </div>
@@ -201,109 +211,111 @@
 
 
 <!-- Image carousel -->
+<!-- End image carousel -->
+
 <section class="hero is-small">
-<h2 class="title is-3", align="center">In-domain Data Results</h2>
+<hr class="custom-hr">
+  <h2 class="title is-3" style="text-align: center;">Comparison with Generalizable Methods</h2>
+  <div class="content has-text-justified" style="text-align: center;">
+    <p style="text-align: center;">
+	(All methods use one Model/MLP to represent any shape on ShapeNet.)
+    </p>
+  </div>
   <div class="hero-body">
     <div class="container">
       <div id="results-carousel" class="carousel results-carousel">
-       <div class="item">
-        <!-- Your image here -->
-        <img src="static/images/md-vis/image-000.jpg" alt="MY ALT TEXT"/>
+        <div class="item">
+          <!-- Your image here -->
+          <img src="static/images/generalizable/1.png" alt="MY ALT TEXT"/>
+        </div>
+        <div class="item">
+          <!-- Your image here -->
+          <img src="static/images/generalizable/2.png" alt="MY ALT TEXT"/>
+        </div>
+        <div class="item">
+          <!-- Your image here -->
+          <img src="static/images/generalizable/3.png" alt="MY ALT TEXT"/>
+        </div>
+        <div class="item">
+          <!-- Your image here -->
+          <img src="static/images/generalizable/4.png" alt="MY ALT TEXT"/>
+        </div>
+        <div class="item">
+          <!-- Your image here -->
+          <img src="static/images/generalizable/5.png" alt="MY ALT TEXT"/>
+        </div>
+        <div class="item">
+          <!-- Your image here -->
+          <img src="static/images/generalizable/6.png" alt="MY ALT TEXT"/>
+        </div>
+		<div class="item">
+          <!-- Your image here -->
+          <img src="static/images/generalizable/7.png" alt="MY ALT TEXT"/>
+        </div>
       </div>
-      <div class="item">
-        <!-- Your image here -->
-        <img src="static/images/md-vis/image-001.jpg" alt="MY ALT TEXT"/>
-      </div>
-      <div class="item">
-        <!-- Your image here -->
-        <img src="static/images/md-vis/image-002.jpg" alt="MY ALT TEXT"/>
-     </div>
-     <div class="item">
-      <!-- Your image here -->
-      <img src="static/images/md-vis/image-003.jpg" alt="MY ALT TEXT"/>
-    </div>
-	<div class="item">
-      <!-- Your image here -->
-      <img src="static/images/md-vis/image-004.jpg" alt="MY ALT TEXT"/>
-    </div>
-	<div class="item">
-      <!-- Your image here -->
-      <img src="static/images/md-vis/image-005.jpg" alt="MY ALT TEXT"/>
     </div>
   </div>
-</div>
-</div>
 </section>
-<!-- End image carousel -->
 
 
-<!-- Image carousel -->
 <section class="hero is-small">
-<h2 class="title is-3", align="center">Out-of-domain Data Results</h2>
+<hr class="custom-hr">
+  <h2 class="title is-3" style="text-align: center;">Comparison with Shape-specific Methods</h2>
+  <div class="content has-text-justified" style="text-align: center;">
+    <p style="text-align: center;">
+      (NGLOD uses one Model/MLP to overfit one shape, while CoFie uses one MLP for any shapes. CoFie achieves comparable performance with NGLOD.)
+    </p>
+  </div>
   <div class="hero-body">
     <div class="container">
       <div id="results-carousel" class="carousel results-carousel">
-       <div class="item">
-        <!-- Your image here -->
-        <img src="static/images/ood-vis/0.jpg" alt="MY ALT TEXT"/>
+        <div class="item">
+          <!-- Your image here -->
+          <img src="static/images/pershape/1.png" alt="MY ALT TEXT"/>
+        </div>
+        <div class="item">
+          <!-- Your image here -->
+          <img src="static/images/pershape/2.png" alt="MY ALT TEXT"/>
+        </div>
+        <div class="item">
+          <!-- Your image here -->
+          <img src="static/images/pershape/3.png" alt="MY ALT TEXT"/>
+        </div>
+        <div class="item">
+          <!-- Your image here -->
+          <img src="static/images/pershape/4.png" alt="MY ALT TEXT"/>
+        </div>
       </div>
-      <div class="item">
-        <!-- Your image here -->
-        <img src="static/images/ood-vis/1.jpg" alt="MY ALT TEXT"/>
-      </div>
-      <div class="item">
-        <!-- Your image here -->
-        <img src="static/images/ood-vis/2.jpg" alt="MY ALT TEXT"/>
-     </div>
-     <div class="item">
-      <!-- Your image here -->
-      <img src="static/images/ood-vis/3.jpg" alt="MY ALT TEXT"/>
-    </div>
-	<div class="item">
-      <!-- Your image here -->
-      <img src="static/images/ood-vis/4.jpg" alt="MY ALT TEXT"/>
-    </div>
-	<div class="item">
-      <!-- Your image here -->
-      <img src="static/images/ood-vis/5.jpg" alt="MY ALT TEXT"/>
-    </div>
-	<div class="item">
-      <!-- Your image here -->
-      <img src="static/images/ood-vis/6.jpg" alt="MY ALT TEXT"/>
-    </div>
-	<div class="item">
-      <!-- Your image here -->
-      <img src="static/images/ood-vis/7.jpg" alt="MY ALT TEXT"/>
-    </div>
-	<div class="item">
-      <!-- Your image here -->
-      <img src="static/images/ood-vis/8.jpg" alt="MY ALT TEXT"/>
-    </div>
-	<div class="item">
-      <!-- Your image here -->
-      <img src="static/images/ood-vis/9.jpg" alt="MY ALT TEXT"/>
-    </div>
-	<div class="item">
-      <!-- Your image here -->
-      <img src="static/images/ood-vis/10.jpg" alt="MY ALT TEXT"/>
-    </div>
-	<div class="item">
-      <!-- Your image here -->
-      <img src="static/images/ood-vis/11.jpg" alt="MY ALT TEXT"/>
-    </div>
-	<div class="item">
-      <!-- Your image here -->
-      <img src="static/images/ood-vis/12.jpg" alt="MY ALT TEXT"/>
-    </div>
-	<div class="item">
-      <!-- Your image here -->
-      <img src="static/images/ood-vis/12.jpg" alt="MY ALT TEXT"/>
     </div>
   </div>
-</div>
-</div>
+  <hr class="custom-hr">
 </section>
-<!-- End image carousel -->
+
+
+
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered has-text-centered">
+      <!-- <div class="column is-full-width has-text-centered"> -->
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">CoFie as a Compact Representation</h2>
+        <div class="content has-text-justified">
+            <p>
+                CoFie using a latent code length of 48 achieves better performance than DeepLS which uses a latent code length of 128. The result desmonstrates that CoFie is a compact neural surface representation, reducing the shape parameters by 70%.
+            </p>
+            <div class="box m-5">
+            <div class="content has-text-centered">
+                <img src="static/images/size_err_plot.png" width="50%" alt="cofie" />
+            </div>
+            </div>
+        </div>
+    </div>
+    </div>
+  </div>
+</section>
+
+
+
 
 
 
@@ -311,10 +323,10 @@
   <section class="section" id="BibTeX">
     <div class="container is-max-desktop content">
       <h2 class="title">BibTeX</h2>
-      <pre><code>@inproceedings{jiang2024Omniglue,
-   title={OmniGlue: Generalizable Feature Matching with Foundation Model Guidance},
-   author={Jiang, Hanwen and Karpur, Arjun and Cao, Bingyi and Huang, Qixing and Araujo, Andre},
-   booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
+      <pre><code>@inproceedings{jiang2024cofie,
+   title={CoFie: Learning Compact Neural Surface Representations with Coordinate Fields},
+   author={Jiang, Hanwen and Yang, Haitao and Pavlakos, Georgios and Huang, Qixing},
+   booktitle={},
    year={2024},
 }</code></pre>
     </div>
