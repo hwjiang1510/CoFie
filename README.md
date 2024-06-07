@@ -15,7 +15,7 @@
 
 <div align="center">
     <a href="https://hwjiang1510.github.io/CoFie/"><strong>Project Page</strong></a> |
-    <a href="https://arxiv.org/abs/"><strong>Paper</strong></a>
+    <a href="https://arxiv.org/abs/2406.03417"><strong>Paper</strong></a>
 </div>
 
 <br>
